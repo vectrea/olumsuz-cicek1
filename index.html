@@ -2,100 +2,155 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ölümsüz Orkide Demeti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ölümsüz Orkide</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #fff0f5, #ffe6f0);
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+      align-items: flex-end;
       overflow: hidden;
+      background: #0d1b2a;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .orchid-bouquet {
-      display: flex;
-      gap: 40px;
-      animation: appear 1s ease-out forwards;
-      opacity: 0;
-      animation-delay: 1s;
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1b263b 0%, #0d1b2a 100%);
+      z-index: -2;
     }
 
-    @keyframes appear {
-      to { opacity: 1; }
+    body::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      background-image: 
+        radial-gradient(2px 2px at 20% 30%, #ffffffaa 100%, transparent 0%),
+        radial-gradient(1.5px 1.5px at 70% 50%, #ffffff88 100%, transparent 0%),
+        radial-gradient(1px 1px at 80% 80%, #ffffff44 100%, transparent 0%),
+        radial-gradient(1.5px 1.5px at 50% 20%, #ffffff66 100%, transparent 0%),
+        radial-gradient(2px 2px at 10% 60%, #ffffffaa 100%, transparent 0%);
+      background-repeat: repeat;
+      z-index: -1;
+      animation: twinkle 10s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
     }
 
     .orchid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: grow 5s ease-in-out forwards;
-      transform-origin: bottom;
+      position: relative;
+      height: 80vh;
+      width: 10px;
+      background: #4b6043;
+      animation: sway 5s ease-in-out infinite;
+      transform-origin: bottom center;
     }
 
-    @keyframes grow {
-      from { transform: scaleY(0); }
-      to { transform: scaleY(1); }
+    @keyframes sway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(1.5deg); }
     }
 
     .flower {
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, #e75480, #d63384);
-      border-radius: 50% 50% 40% 40% / 50% 50% 40% 40%;
-      position: relative;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle at center, #e6c2ff 20%, #9a4ebf 80%);
+      border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
       opacity: 0;
       animation: bloom 1s forwards;
-      margin-bottom: 10px;
+      transform: rotate(-10deg);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     }
 
-    .flower::before, .flower::after {
+    .flower::before,
+    .flower::after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #f5a3c2;
       border-radius: 50%;
+      background: #fff6;
+      filter: blur(2px);
     }
 
     .flower::before {
-      top: -10px;
-      left: -10px;
+      width: 15px;
+      height: 15px;
+      top: 5px;
+      left: 5px;
     }
 
     .flower::after {
-      top: -10px;
-      right: -10px;
+      width: 10px;
+      height: 10px;
+      bottom: 5px;
+      right: 5px;
     }
 
-    .flower:nth-child(1) { animation-delay: 2s; }
-    .flower:nth-child(2) { animation-delay: 3s; }
-    .flower:nth-child(3) { animation-delay: 4s; }
-    .flower:nth-child(4) { animation-delay: 5s; }
+    .flower:nth-child(1) { bottom: 10%; left: -15px; animation-delay: 0.5s; }
+    .flower:nth-child(2) { bottom: 25%; left: 20px; animation-delay: 1.5s; }
+    .flower:nth-child(3) { bottom: 40%; left: -20px; animation-delay: 2.5s; }
+    .flower:nth-child(4) { bottom: 55%; left: 15px; animation-delay: 3.5s; }
+    .flower:nth-child(5) { bottom: 70%; left: -10px; animation-delay: 4.5s; }
 
     @keyframes bloom {
-      to { opacity: 1; transform: scale(1.1); }
+      to {
+        transform: scale(1.2) rotate(-10deg);
+        opacity: 1;
+      }
     }
 
-    .stem {
-      width: 4px;
-      height: 120px;
-      background: green;
-      margin-top: 10px;
+    .leaf {
+      position: absolute;
+      width: 80px;
+      height: 40px;
+      background: radial-gradient(circle at center, #5b8157 0%, #2e4d30 100%);
+      border-radius: 50% 50% 0 0;
+      bottom: -10px;
+      opacity: 0.7;
+      animation: leafWiggle 6s ease-in-out infinite;
+      transform-origin: center;
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 1.6rem;
-      color: #b1005b;
+    .leaf.left {
+      left: -60px;
+      transform: rotate(-20deg);
+    }
+
+    .leaf.right {
+      right: -60px;
+      transform: rotate(20deg);
+    }
+
+    @keyframes leafWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    .message {
+      position: absolute;
+      bottom: 30px;
+      text-align: center;
+      color: #fff;
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px #000;
+      animation: fadeIn 3s ease 5.5s forwards;
       opacity: 0;
-      animation: fadeIn 2s ease-in 6s forwards;
     }
 
     @keyframes fadeIn {
@@ -104,32 +159,22 @@
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2023/04/26/audio_bfbd2c918f.mp3" type="audio/mpeg">
+  </audio>
 
-  <div class="orchid-bouquet">
-    <div class="orchid">
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="stem"></div>
-    </div>
-    <div class="orchid">
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="stem"></div>
-    </div>
-    <div class="orchid">
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="stem"></div>
-    </div>
+  <div class="orchid">
+    <div class="flower"></div>
+    <div class="flower"></div>
+    <div class="flower"></div>
+    <div class="flower"></div>
+    <div class="flower"></div>
+    <div class="leaf left"></div>
+    <div class="leaf right"></div>
   </div>
 
-  <h1>Zaman geçer, güller solar ama<br>sen benim ölümsüz çiçeğimsin, anne 🌸</h1>
-
+  <div class="message">
+    Zaman geçer, güller solar ama sen benim ölümsüz çiçeğimsin, anne.
+  </div>
 </body>
 </html>
