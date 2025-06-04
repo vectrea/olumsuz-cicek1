@@ -1,2 +1,2 @@
 # olumsuz-cicek
-annemed
+anneme
